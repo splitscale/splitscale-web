@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import { ClerkProvider, SignedIn, SignedOut, SignIn } from "@clerk/nextjs";
-import { UiProviders } from "@/app/_components/providers";
+import { UiProviders } from "@/app/_components/ui-providers";
 
 export default function RootLayout({
   children,
