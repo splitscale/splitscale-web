@@ -2,7 +2,9 @@ import "@/styles/globals.css";
 import { cookies } from "next/headers";
 import { TRPCReactProvider } from "@/trpc/react";
 import { ClerkProvider, SignedIn, SignedOut, SignIn } from "@clerk/nextjs";
-import { UiProviders } from "@/app/_components/ui-providers";
+import { NextUiProvider } from "@/app/_components/nextui-provider";
+import { SignInProvider } from "@/app/_components/signin-provider";
+import { dark } from "@clerk/themes";
 
 export default function RootLayout({
   children,
@@ -10,25 +12,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <UiProviders>
+    <NextUiProvider>
       <ClerkProvider
         appearance={{
           elements: { footer: { display: "none" } },
+          baseTheme: dark,
         }}
       >
         <SignedIn>
-          <html lang="en">
-            <body className="bg-background text-foreground dark">
-              <TRPCReactProvider cookies={cookies().toString()}>
-                {children}
-              </TRPCReactProvider>
-            </body>
-          </html>
+          <TRPCReactProvider cookies={cookies().toString()}>
+            {children}
+          </TRPCReactProvider>
         </SignedIn>
         <SignedOut>
-          <SignIn redirectUrl={"/internal"} />
+          <SignInProvider />
         </SignedOut>
       </ClerkProvider>
-    </UiProviders>
+    </NextUiProvider>
   );
 }
