@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import { ClerkProvider, SignedIn, SignedOut, SignIn } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider
       appearance={{
-        elements: { footerAction: { display: "none" } },
+        elements: { footer: { display: "none" } },
       }}
     >
       <SignedIn>
@@ -38,7 +39,7 @@ export default function RootLayout({
         </html>
       </SignedIn>
       <SignedOut>
-        <SignIn />
+        <SignIn redirectUrl={"/internal"} />
       </SignedOut>
     </ClerkProvider>
   );
